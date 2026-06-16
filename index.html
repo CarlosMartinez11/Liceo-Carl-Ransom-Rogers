@@ -2,9 +2,35 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Liceo Carl Ransom Rogers</title>
+<title>Liceo Carl Ransom Rogers — Arteaga, Coahuila</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="description" content="Liceo Carl Ransom Rogers — educación preescolar, primaria y secundaria en Arteaga, Coahuila. Metodología Knotion®, alianzas con Apple, LEGO y Scholastic. Agenda tu visita.">
+<meta property="og:type"        content="website">
+<meta property="og:title"       content="Liceo Carl Ransom Rogers — Arteaga, Coahuila">
+<meta property="og:description" content="Educación humanista y de vanguardia para niños de 3 a 15 años. Empowered by Knotion®. Agenda tu visita hoy.">
+<meta property="og:image"       content="assets/Escudo SF.png">
+<meta property="og:url"         content="https://liceorogers.edu.mx/">
+<meta name="twitter:card"       content="summary_large_image">
 <link rel="icon" type="image/png" href="assets/favicon.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "EducationalOrganization",
+  "name": "Liceo Carl Ransom Rogers",
+  "url": "https://liceorogers.edu.mx/",
+  "logo": "https://liceorogers.edu.mx/assets/Escudo SF.png",
+  "description": "Institución educativa privada con niveles preescolar, primaria y secundaria en Arteaga, Coahuila.",
+  "telephone": ["+52-844-657-6124", "+52-844-506-7429"],
+  "email": "liceorogers@gmail.com",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Arteaga",
+    "addressRegion": "Coahuila",
+    "addressCountry": "MX"
+  },
+  "openingHours": ["Mo-Fr 08:00-15:00"]
+}
+</script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Atma:wght@700&display=swap" rel="stylesheet">
 <style>
 /* =============================================
@@ -63,7 +89,7 @@ h1, h2, h3, h4 {
 .reveal {
   opacity: 0;
   transform: translateY(28px);
-  transition: opacity .7s var(--ease-out), transform .7s var(--ease-out);
+  transition: opacity .45s var(--ease-out), transform .45s var(--ease-out);
 }
 .reveal.visible {
   opacity: 1;
@@ -426,6 +452,26 @@ header {
   border-color: var(--blue);
   background: rgba(8,25,114,.05);
   transform: translateY(-3px);
+}
+
+.btn-whatsapp {
+  font-family: 'Inter', sans-serif;
+  background: #25D366;
+  color: white;
+  font-weight: 700;
+  font-size: .78rem;
+  padding: 16px 36px;
+  border-radius: 100px;
+  text-decoration: none;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  transition: transform .3s var(--ease-spring), box-shadow .3s;
+  box-shadow: 0 4px 24px rgba(37,211,102,.4);
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.btn-whatsapp:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 8px 36px rgba(37,211,102,.6);
 }
 
 .btn-white {
@@ -957,40 +1003,39 @@ footer {
 .knotion-badge span { color: var(--green); }
 
 /* =============================================
-   SOCIAL BUBBLE
+   WHATSAPP STICKY
    ============================================= */
-.social-bubble {
+.wa-sticky {
   position: fixed;
-  right: 20px;
-  top: 50%;
-  transform: translateY(-50%);
+  right: 24px;
+  bottom: max(28px, calc(28px + env(safe-area-inset-bottom)));
   z-index: 900;
-}
-.social-bubble-inner {
-  background: rgba(255,255,255,.12);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255,255,255,.2);
-  border-radius: 100px;
-  padding: 12px 10px;
   display: flex;
-  flex-direction: column;
-  gap: 12px;
-  box-shadow: 0 8px 40px rgba(0,0,0,.15);
-}
-.social-btn {
-  width: 42px; height: 42px;
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
+  align-items: center;
+  gap: 10px;
+  background: #25D366;
+  color: white;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: .75rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
   text-decoration: none;
+  padding: 13px 22px 13px 18px;
+  border-radius: 100px;
+  box-shadow: 0 4px 28px rgba(37,211,102,.5);
   transition: transform .3s var(--ease-spring), box-shadow .3s;
 }
-.social-btn:hover { transform: scale(1.18); }
-.social-btn.fb { background: #1877F2; box-shadow: 0 4px 16px rgba(24,119,242,.45); }
-.social-btn.fb:hover { box-shadow: 0 6px 24px rgba(24,119,242,.7); }
-.social-btn.wa { background: #25D366; box-shadow: 0 4px 16px rgba(37,211,102,.45); }
-.social-btn.wa:hover { box-shadow: 0 6px 24px rgba(37,211,102,.7); }
-.social-btn svg { display: block; }
+.wa-sticky:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 8px 40px rgba(37,211,102,.65);
+}
+.wa-sticky svg { flex-shrink: 0; }
+
+@media (max-width: 640px) {
+  .wa-sticky span { display: none; }
+  .wa-sticky { padding: 14px; border-radius: 50%; }
+}
 
 /* =============================================
    ANIMATIONS
@@ -1094,11 +1139,9 @@ footer {
    ============================================= */
 #intro-backdrop {
   position: fixed; inset: 0; z-index: 9998;
-  background: rgba(8,25,114,.22);
-  backdrop-filter: blur(24px) saturate(.65);
-  -webkit-backdrop-filter: blur(24px) saturate(.65);
+  background: var(--blue);
   pointer-events: none;
-  animation: introBackIn .45s ease-out both;
+  animation: introBackIn .3s ease-out both;
 }
 #intro-shield-wrap {
   position: fixed; inset: 0; z-index: 9999;
@@ -1106,15 +1149,15 @@ footer {
   pointer-events: none;
 }
 #intro-shield {
-  width: min(78vmin, 560px);
-  height: min(78vmin, 560px);
+  width: min(44vmin, 220px);
+  height: min(44vmin, 220px);
   object-fit: contain;
-  filter: drop-shadow(0 12px 56px rgba(0,0,0,.28));
+  filter: drop-shadow(0 8px 32px rgba(0,0,0,.35));
   will-change: transform;
-  animation: introShieldIn .6s var(--ease-out) both;
+  animation: introShieldIn .4s var(--ease-out) both;
 }
 @keyframes introBackIn   { from { opacity: 0; } to { opacity: 1; } }
-@keyframes introShieldIn { from { opacity: 0; transform: scale(.84); } to { opacity: 1; transform: scale(1); } }
+@keyframes introShieldIn { from { opacity: 0; transform: scale(.88); } to { opacity: 1; transform: scale(1); } }
 @media (prefers-reduced-motion: reduce) {
   #intro-backdrop, #intro-shield-wrap { display: none !important; }
 }
@@ -1194,12 +1237,13 @@ footer {
     </p>
 
     <div class="hero-btns">
-      <a href="cometa.html" class="btn-primary">
+      <a href="contacto.html" class="btn-primary">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        Conoce más
+        Agenda tu visita
       </a>
-      <a href="contacto.html" class="btn-secondary">
-        Agenda una visita
+      <a href="https://wa.me/528445067429?text=Hola%2C%20me%20gustar%C3%ADa%20agendar%20una%20visita%20al%20Liceo%20Carl%20Ransom%20Rogers" target="_blank" rel="noopener" class="btn-whatsapp">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+        Escríbenos
       </a>
     </div>
   </div>
@@ -1474,18 +1518,14 @@ footer {
 </footer>
 
 <!-- =============================================
-     SOCIAL BUBBLE
+     WHATSAPP STICKY
      ============================================= -->
-<div class="social-bubble">
-  <div class="social-bubble-inner">
-    <a href="https://www.facebook.com/liceorogers/" target="_blank" aria-label="Visítanos en Facebook" class="social-btn fb">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="white" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-    </a>
-    <a href="https://wa.me/528445067429?text=Hola%2C%20me%20gustar%C3%ADa%20recibir%20informaci%C3%B3n%20sobre%20el%20Liceo%20Carl%20Ransom%20Rogers" target="_blank" aria-label="Escríbenos por WhatsApp" class="social-btn wa">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-    </a>
-  </div>
-</div>
+<a class="wa-sticky"
+   href="https://wa.me/528445067429?text=Hola%2C%20me%20gustar%C3%ADa%20recibir%20informaci%C3%B3n%20sobre%20el%20Liceo%20Carl%20Ransom%20Rogers"
+   target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+  <span>Escríbenos</span>
+</a>
 
 <!-- =============================================
      SCRIPTS
@@ -1569,8 +1609,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     requestAnimationFrame(function () {
       requestAnimationFrame(function () {
-        shield.style.transition   = 'transform .9s ' + ease;
-        backdrop.style.transition = 'opacity .9s '   + ease;
+        shield.style.transition   = 'transform .6s ' + ease;
+        backdrop.style.transition = 'opacity .6s '   + ease;
         shield.style.transform    = 'translate(' + dx + 'px,' + dy + 'px) scale(' + scale + ')';
         backdrop.style.opacity    = '0';
 
@@ -1581,10 +1621,10 @@ document.addEventListener('DOMContentLoaded', function () {
           backdrop.remove();
           wrap.remove();
           document.body.style.overflow = '';
-        }, 920);
+        }, 620);
       });
     });
-  }, 1100);
+  }, 400);
 })();
 
 /* Scroll-reveal via IntersectionObserver */
