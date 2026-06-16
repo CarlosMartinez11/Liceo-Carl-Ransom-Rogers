@@ -55,12 +55,12 @@ h1,h2,h3,h4 {
    SCROLL-REVEAL
    ============================================= */
 .reveal {
-  opacity: 0; transform: translateY(28px);
-  transition: opacity .7s var(--ease-out), transform .7s var(--ease-out);
+  opacity: 0; transform: translateY(28px); clip-path: inset(0 0 8% 0);
+  transition: opacity .7s var(--ease-out), transform .7s var(--ease-out); transition: opacity .45s cubic-bezier(0.22,1,0.36,1), transform .45s cubic-bezier(0.22,1,0.36,1), clip-path .45s cubic-bezier(0.22,1,0.36,1);
 }
-.reveal.visible { opacity: 1; transform: translateY(0); }
-.reveal-left  { opacity: 0; transform: translateX(-32px); transition: opacity .7s var(--ease-out), transform .7s var(--ease-out); }
-.reveal-right { opacity: 0; transform: translateX(32px);  transition: opacity .7s var(--ease-out), transform .7s var(--ease-out); }
+.reveal.visible { opacity: 1; transform: translateY(0); clip-path: inset(0 0 0% 0); }
+.reveal-left  { opacity: 0; transform: translateX(-32px); transition: opacity .7s var(--ease-out), transform .7s var(--ease-out); transition: opacity .45s cubic-bezier(0.22,1,0.36,1), transform .45s cubic-bezier(0.22,1,0.36,1), clip-path .45s cubic-bezier(0.22,1,0.36,1); }
+.reveal-right { opacity: 0; transform: translateX(32px);  transition: opacity .7s var(--ease-out), transform .7s var(--ease-out); transition: opacity .45s cubic-bezier(0.22,1,0.36,1), transform .45s cubic-bezier(0.22,1,0.36,1), clip-path .45s cubic-bezier(0.22,1,0.36,1); }
 .reveal-left.visible, .reveal-right.visible { opacity: 1; transform: translateX(0); }
 .reveal-delay-1 { transition-delay: .1s; }
 .reveal-delay-2 { transition-delay: .2s; }
@@ -382,7 +382,7 @@ header {
   font-family: 'Atma', cursive; font-size: 4.5rem; font-weight: 700;
   color: var(--outer-color, var(--blue)); opacity: .08;
   position: absolute; top: 8px; right: 16px; line-height: 1;
-  user-select: none; transition: opacity .3s;
+  user-select: none; transition: opacity .3s; transition: opacity .45s cubic-bezier(0.22,1,0.36,1), transform .45s cubic-bezier(0.22,1,0.36,1), clip-path .45s cubic-bezier(0.22,1,0.36,1);
 }
 .outer-card:hover .outer-num { opacity: .14; }
 .outer-card h3 { font-size: .9rem; color: var(--blue); margin-bottom: 10px; position: relative; z-index: 2; }
@@ -581,7 +581,7 @@ header {
 .academia-img {
   position: absolute; width: 200px; height: 200px;
   object-fit: contain; z-index: 0; opacity: .25;
-  transition: opacity .3s, transform .4s var(--ease-out);
+  transition: opacity .3s, transform .4s var(--ease-out); transition: opacity .45s cubic-bezier(0.22,1,0.36,1), transform .45s cubic-bezier(0.22,1,0.36,1), clip-path .45s cubic-bezier(0.22,1,0.36,1);
 }
 .academia-card:nth-child(1) .academia-img { top: -20px; right: -20px; transform: rotate(-12deg); }
 .academia-card:nth-child(2) .academia-img { bottom: -28px; right: -16px; transform: rotate(15deg); }
@@ -630,14 +630,6 @@ footer { background: var(--ink); color: rgba(255,255,255,.55); padding: 72px 40p
 /* =============================================
    SOCIAL BUBBLE
    ============================================= */
-.social-bubble { position: fixed; right: 20px; top: 50%; transform: translateY(-50%); z-index: 900; }
-.social-bubble-inner { background: rgba(255,255,255,.12); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,.2); border-radius: 100px; padding: 12px 10px; display: flex; flex-direction: column; gap: 12px; box-shadow: 0 8px 40px rgba(0,0,0,.15); }
-.social-btn { width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; transition: transform .3s var(--ease-spring), box-shadow .3s; }
-.social-btn:hover { transform: scale(1.18); }
-.social-btn.fb { background: #1877F2; box-shadow: 0 4px 16px rgba(24,119,242,.45); }
-.social-btn.fb:hover { box-shadow: 0 6px 24px rgba(24,119,242,.7); }
-.social-btn.wa { background: #25D366; box-shadow: 0 4px 16px rgba(37,211,102,.45); }
-.social-btn.wa:hover { box-shadow: 0 6px 24px rgba(37,211,102,.7); }
 
 /* =============================================
    ANIMATIONS
@@ -700,6 +692,49 @@ footer { background: var(--ink); color: rgba(255,255,255,.55); padding: 72px 40p
 @keyframes introBackIn   { from { opacity: 0; } to { opacity: 1; } }
 @keyframes introShieldIn { from { opacity: 0; transform: scale(.84); } to { opacity: 1; transform: scale(1); } }
 @media (prefers-reduced-motion: reduce) { #intro-backdrop, #intro-shield-wrap { display: none !important; } }
+
+/* =============================================
+   WHATSAPP STICKY + EXTRAS
+   ============================================= */
+.wa-sticky {
+  position: fixed;
+  right: 24px;
+  bottom: max(28px, calc(28px + env(safe-area-inset-bottom)));
+  z-index: 900;
+  display: flex; align-items: center; gap: 10px;
+  background: #25D366; color: white;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700; font-size: .75rem;
+  letter-spacing: .06em; text-transform: uppercase; text-decoration: none;
+  padding: 13px 22px 13px 18px; border-radius: 100px;
+  box-shadow: 0 4px 28px rgba(37,211,102,.5);
+  transition: transform .3s cubic-bezier(0.34,1,0.64,1), box-shadow .3s;
+}
+.wa-sticky:hover { transform: translateY(-3px) scale(1.03); box-shadow: 0 8px 40px rgba(37,211,102,.65); }
+.wa-sticky svg { flex-shrink: 0; }
+@media (max-width: 640px) {
+  .wa-sticky span { display: none; }
+  .wa-sticky { padding: 14px; border-radius: 50%; }
+}
+.mobile-menu-sep { width: 60px; height: 1px; background: rgba(255,255,255,.1); }
+.mobile-fb-link {
+  display: flex; align-items: center; gap: 10px;
+  font-family: 'Atma', cursive;
+  color: rgba(255,255,255,.5) !important; font-size: 1rem !important;
+  font-weight: 700; letter-spacing: .05em; text-decoration: none;
+  transition: color .2s, transform .2s;
+}
+.mobile-fb-link:hover { color: #1877F2 !important; transform: translateX(6px); }
+.mobile-fb-link svg { color: #1877F2; flex-shrink: 0; }
+.btn-primary:active, .btn-secondary:active, .btn-white:active,
+.btn-whatsapp:active, .wa-sticky:active {
+  transform: scale(0.97) !important; transition-duration: .1s !important;
+}
+.scroll-progress {
+  position: fixed; top: 0; left: 0; height: 2px; width: 0%;
+  background: var(--green, #9ADF09); z-index: 1100;
+  transition: width .08s linear; box-shadow: 0 0 6px rgba(154,223,9,.6);
+}
 </style>
 </head>
 <body>
@@ -1145,16 +1180,14 @@ footer { background: var(--ink); color: rgba(255,255,255,.55); padding: 72px 40p
 </footer>
 
 <!-- SOCIAL BUBBLE -->
-<div class="social-bubble">
-  <div class="social-bubble-inner">
-    <a href="https://www.facebook.com/liceorogers/" target="_blank" title="Facebook" class="social-btn fb">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-    </a>
-    <a href="https://wa.me/528445067429?text=Hola%2C%20me%20gustar%C3%ADa%20recibir%20informaci%C3%B3n%20sobre%20el%20Liceo%20Carl%20Ransom%20Rogers" target="_blank" title="WhatsApp" class="social-btn wa">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-    </a>
-  </div>
-</div>
+<!-- WHATSAPP STICKY -->
+<div class="scroll-progress" id="scrollProgress"></div>
+<a class="wa-sticky"
+   href="https://wa.me/528445067429?text=Hola%2C%20me%20gustar%C3%ADa%20recibir%20informaci%C3%B3n%20sobre%20el%20Liceo%20Carl%20Ransom%20Rogers"
+   target="_blank" rel="noopener" aria-label="EscrÃ­benos por WhatsApp">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+  <span>EscrÃ­benos</span>
+</a>
 
 <script>
 function toggleFaq(el) {
@@ -1212,6 +1245,8 @@ function closeMobile() {
   }, { threshold: 0.1 });
   document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(function (el) { io.observe(el); });
 })();
+/* Scroll progress */
+(function(){var b=document.getElementById('scrollProgress');if(!b)return;window.addEventListener('scroll',function(){var s=document.documentElement;b.style.width=Math.min(s.scrollTop/(s.scrollHeight-s.clientHeight)*100,100)+'%';},{passive:true});})();
 </script>
 </body>
 </html>

@@ -88,12 +88,14 @@ h1, h2, h3, h4 {
    ============================================= */
 .reveal {
   opacity: 0;
-  transform: translateY(28px);
-  transition: opacity .45s var(--ease-out), transform .45s var(--ease-out);
+  transform: translateY(20px) scale(.98);
+  clip-path: inset(0 0 8% 0);
+  transition: opacity .45s var(--ease-out), transform .45s var(--ease-out), clip-path .45s var(--ease-out);
 }
 .reveal.visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
+  clip-path: inset(0 0 0% 0);
 }
 .reveal-delay-1 { transition-delay: .1s; }
 .reveal-delay-2 { transition-delay: .2s; }
@@ -1172,12 +1174,15 @@ footer {
   filter: drop-shadow(0 8px 32px rgba(0,0,0,.35));
   will-change: transform;
   animation: introShieldIn .4s var(--ease-out) both;
+  filter: blur(0);
 }
 @keyframes introBackIn   { from { opacity: 0; } to { opacity: 1; } }
-@keyframes introShieldIn { from { opacity: 0; transform: scale(.88); } to { opacity: 1; transform: scale(1); } }
+@keyframes introShieldIn { from { opacity: 0; transform: scale(.93); filter: blur(8px); } to { opacity: 1; transform: scale(1); filter: blur(0); } }
 @media (prefers-reduced-motion: reduce) {
   #intro-backdrop, #intro-shield-wrap { display: none !important; }
 }
+.scroll-progress{position:fixed;top:0;left:0;height:2px;width:0%;background:var(--green);z-index:1100;transition:width .08s linear;box-shadow:0 0 6px rgba(154,223,9,.6);}
+.btn-primary:active,.btn-secondary:active,.btn-white:active,.btn-whatsapp:active,.wa-sticky:active{transform:scale(0.97)!important;transition-duration:.1s!important;}
 </style>
 </head>
 <body>
@@ -1804,6 +1809,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   loop();
 })();
+(function(){var b=document.getElementById('scrollProgress');if(!b)return;window.addEventListener('scroll',function(){var s=document.documentElement;b.style.width=Math.min(s.scrollTop/(s.scrollHeight-s.clientHeight)*100,100)+'%';},{passive:true});})();
 </script>
 </body>
 </html>
