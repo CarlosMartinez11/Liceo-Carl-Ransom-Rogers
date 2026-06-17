@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta name="google-site-verification" content="bpNleFr6NtnZFRSb2TgWxJt_e_YdRoiDvX_5wxPfYsc" />
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; img-src 'self' data: https:; frame-ancestors 'none';">
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://analytics.google.com; img-src 'self' data: https:; frame-ancestors 'none';">
     <meta charset="UTF-8">
 <title>Liceo Carl Ransom Rogers — Arteaga, Coahuila</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -1186,7 +1186,14 @@ footer {
 .scroll-progress{position:fixed;top:0;left:0;height:2px;width:0%;background:var(--green);z-index:1100;transition:width .08s linear;box-shadow:0 0 6px rgba(154,223,9,.6);}
 .btn-primary:active,.btn-secondary:active,.btn-white:active,.btn-whatsapp:active,.wa-sticky:active{transform:scale(0.97)!important;transition-duration:.1s!important;}
 </style>
-</head>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-L6J2L775B7"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-L6J2L775B7');
+  </script></head>
 <body>
 
 <!-- LOGO INTRO -->
