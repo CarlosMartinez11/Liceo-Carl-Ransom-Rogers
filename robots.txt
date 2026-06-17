@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://liceorogers.com/sitemap.xml
