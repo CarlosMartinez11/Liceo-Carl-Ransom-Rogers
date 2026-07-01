@@ -4,8 +4,15 @@
     <meta name="google-site-verification" content="bpNleFr6NtnZFRSb2TgWxJt_e_YdRoiDvX_5wxPfYsc" />    <meta charset="UTF-8">
 <title>Nosotros | Liceo Carl Ransom Rogers</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Conoce la misión, visión y valores del Liceo Carl Ransom Rogers, institución educativa en Arteaga, Coahuila. Descubre los principios que guían a nuestra comunidad.">
+<meta property="og:type"        content="website">
+<meta property="og:title"       content="Nosotros — Liceo Carl Ransom Rogers">
+<meta property="og:description" content="Misión, visión y valores del Liceo Carl Ransom Rogers en Arteaga, Coahuila.">
+<meta property="og:image"       content="https://liceorogers.com/assets/favicon.png">
+<meta property="og:url"         content="https://liceorogers.com/nosotros.html">
+<meta name="twitter:card"       content="summary_large_image">
 <link rel="icon" type="image/png" href="assets/favicon.png">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Atma:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800&family=Atma:wght@700&display=swap" rel="stylesheet">
 <style>
 /* =============================================
    DESIGN TOKENS (idénticos al index)
@@ -17,7 +24,7 @@
   --green:       #9ADF09;
   --orange:      #FF670B;
   --ink:         #0a0f2e;
-  --ink-60:      rgba(10,15,46,.6);
+  --ink-60:      rgba(10,15,46,.78);
   --ink-30:      rgba(10,15,46,.3);
   --surface:     #f8f9ff;
   --white:       #ffffff;
@@ -37,7 +44,7 @@
 html { scroll-behavior: smooth; }
 
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Nunito', sans-serif;
   background: var(--white);
   color: var(--ink);
   overflow-x: hidden;
@@ -125,8 +132,8 @@ header {
   filter: drop-shadow(0 16px 32px rgba(0,0,0,.55));
 }
 
-.nav-left a, .nav-right a {
-  font-family: 'Inter', sans-serif;
+.nav-left a:not(.cometa-btn), .nav-right a:not(.cometa-btn) {
+  font-family: 'Nunito', sans-serif;
   color: rgba(255,255,255,.85);
   text-decoration: none;
   font-weight: 600;
@@ -138,27 +145,34 @@ header {
   text-transform: uppercase;
   white-space: nowrap;
 }
-.nav-left a:hover, .nav-right a:hover {
+.nav-left a:not(.cometa-btn):hover, .nav-right a:not(.cometa-btn):hover {
   background: rgba(154,223,9,.15);
   color: var(--green);
   transform: translateY(-1px);
 }
-.nav-left a.active, .nav-right a.active {
+.nav-left a.active:not(.cometa-btn), .nav-right a.active:not(.cometa-btn) {
   background: rgba(154,223,9,.18);
   color: var(--green);
 }
 .cometa-btn {
-  background: linear-gradient(135deg, var(--orange), #ffaa00) !important;
-  color: white !important;
-  padding: 8px 20px !important;
+  font-family: 'Nunito', sans-serif;
+  text-decoration: none;
+  display: inline-block;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--orange), #ffaa00);
+  color: white;
+  padding: 8px 20px;
   box-shadow: 0 4px 20px rgba(255,103,11,.35);
-  transition: transform .3s var(--ease-spring), box-shadow .3s !important;
+  transition: transform .3s var(--ease-spring), box-shadow .3s;
 }
 .cometa-btn:hover {
-  background: linear-gradient(135deg, #ff8a00, var(--orange)) !important;
-  color: white !important;
-  box-shadow: 0 6px 28px rgba(255,103,11,.5) !important;
-  transform: translateY(-2px) !important;
+  background: linear-gradient(135deg, #ff8a00, var(--orange));
+  color: white;
+  box-shadow: 0 6px 28px rgba(255,103,11,.5);
+  transform: translateY(-2px);
 }
 
 .hamburger {
@@ -415,7 +429,7 @@ header {
 }
 
 /* =============================================
-   MISI�"N Y VISI�"N
+   MISIÓN Y VISIÓN
    ============================================= */
 .mv-section {
   background: var(--blue);
@@ -889,15 +903,15 @@ footer {
   .reveal-left,
   .reveal-right {
     opacity: 1 !important;
-    transform: none !important;
-    transition: none !important;
+    transform: none;
+    transition: none;
   }
   .page-tag,
   .page-hero h1,
   .page-hero p {
     animation: none !important;
     opacity: 1 !important;
-    transform: none !important;
+    transform: none;
   }
   .escudo-glow { animation: none !important; }
   * { transition-duration: 0.01ms !important; }
@@ -961,7 +975,7 @@ footer {
   z-index: 900;
   display: flex; align-items: center; gap: 10px;
   background: #25D366; color: white;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Nunito', sans-serif;
   font-weight: 700; font-size: .75rem;
   letter-spacing: .06em; text-transform: uppercase; text-decoration: none;
   padding: 13px 22px 13px 18px; border-radius: 100px;
@@ -978,15 +992,15 @@ footer {
 .mobile-fb-link {
   display: flex; align-items: center; gap: 10px;
   font-family: 'Atma', cursive;
-  color: rgba(255,255,255,.5) !important; font-size: 1rem !important;
+  color: rgba(255,255,255,.5); font-size: 1rem !important;
   font-weight: 700; letter-spacing: .05em; text-decoration: none;
   transition: color .2s, transform .2s;
 }
-.mobile-fb-link:hover { color: #1877F2 !important; transform: translateX(6px); }
+.mobile-fb-link:hover { color: #1877F2; transform: translateX(6px); }
 .mobile-fb-link svg { color: #1877F2; flex-shrink: 0; }
 .btn-primary:active, .btn-secondary:active, .btn-white:active,
 .btn-whatsapp:active, .wa-sticky:active {
-  transform: scale(0.97) !important; transition-duration: .1s !important;
+  transform: scale(0.97); transition-duration: .1s !important;
 }
 .scroll-progress {
   position: fixed; top: 0; left: 0; height: 2px; width: 0%;
@@ -1018,8 +1032,8 @@ footer {
   <a href="index.html"     onclick="closeMobile()">Inicio</a>
   <a href="nosotros.html"  onclick="closeMobile()">Nosotros</a>
   <a href="modelo.html"    onclick="closeMobile()">Modelo Educativo</a>
-  <a href="comunidad.html" onclick="closeMobile()">Manada&reg;</a>
-  <a href="cometa.html"    onclick="closeMobile()">¿Estás Listo?</a>
+  <a href="comunidad.html" onclick="closeMobile()">Manada&reg; — Comunidad</a>
+  <a href="cometa.html"    onclick="closeMobile()">Agenda tu Visita</a>
   <a href="contacto.html"  onclick="closeMobile()">Contacto</a>
   <div class="mobile-menu-sep"></div>
   <a href="https://www.facebook.com/liceorogers/" target="_blank" rel="noopener noreferrer" class="mobile-fb-link" onclick="closeMobile()">
@@ -1044,8 +1058,8 @@ footer {
     </a>
   </div>
   <div class="nav-right">
-    <a href="comunidad.html">Manada&reg;</a>
-    <a href="cometa.html" class="cometa-btn">¿Estás Listo?</a>
+    <a href="comunidad.html" title="Nuestra comunidad de familias y alumnos">Manada&reg;</a>
+    <a href="cometa.html" class="cometa-btn">Agenda tu Visita</a>
     <a href="contacto.html">Contacto</a>
     <button class="hamburger" onclick="toggleMobile()" aria-label="Abrir menú" aria-expanded="false" id="hamburgerBtn">
       <span></span><span></span><span></span>
@@ -1102,7 +1116,7 @@ footer {
 </section>
 
 <!-- =============================================
-     MISI�"N Y VISI�"N
+     MISIÓN Y VISIÓN
      ============================================= -->
 <section class="mv-section">
   <div class="mv-inner">
@@ -1237,7 +1251,7 @@ footer {
       </div>
       <div class="simbolo-card reveal reveal-delay-3">
         <div class="simbolo-icon-wrap">
-          <img src="assets/sticker_pino.png" class="simbolo-icon" alt="Pino y Montañas">
+          <img src="assets/sticker_pino.png" class="simbolo-icon" alt="Pino y las Montañas">
         </div>
         <div class="simbolo-accent"></div>
         <h3>Pino y las Montañas</h3>
@@ -1262,8 +1276,8 @@ footer {
       <a href="index.html">Inicio</a>
       <a href="nosotros.html">Nosotros</a>
       <a href="modelo.html">Modelo Educativo</a>
-      <a href="comunidad.html">Manada&reg;</a>
-      <a href="cometa.html">¿Estás Listo?</a>
+      <a href="comunidad.html" title="Nuestra comunidad de familias y alumnos">Manada&reg;</a>
+      <a href="cometa.html">Agenda tu Visita</a>
       <a href="contacto.html">Contacto</a>
     </div>
     <div class="footer-col">
@@ -1345,7 +1359,7 @@ function closeMobile() {
   });
 })();
 /* Scroll progress */
-(function(){var b=document.getElementById('scrollProgress');if(!b)return;window.addEventListener('scroll',function(){var s=document.documentElement;b.style.width=Math.min(s.scrollTop/(s.scrollHeight-s.clientHeight)*100,100)+'%';},{passive:true});})();
+(function(){var b=document.getElementById('scrollProgress');if(!b)return;window.addEventListener('scroll',function(){var s=document.documentElement;b.style.transform='scaleX('+Math.min(s.scrollTop/(s.scrollHeight-s.clientHeight),1)+')';},{passive:true});})();
 </script>
 </body>
 </html>

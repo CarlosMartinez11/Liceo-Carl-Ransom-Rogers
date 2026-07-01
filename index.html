@@ -20,7 +20,7 @@
   "url": "https://liceorogers.com/",
   "logo": "https://liceorogers.com/assets/favicon.png",
   "description": "Institución educativa privada con niveles preescolar, primaria y secundaria en Arteaga, Coahuila.",
-  "telephone": ["+52-844-657-6124", "+52-844-506-7429"],
+  "telephone": ["+52-844-657-6124", "+52-844-293-4035", "+52-844-506-7429"],
   "email": "liceorogers@gmail.com",
   "address": {
     "@type": "PostalAddress",
@@ -31,7 +31,7 @@
   "openingHours": ["Mo-Fr 08:00-15:00"]
 }
 </script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Atma:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800&family=Atma:wght@700&display=swap" rel="stylesheet">
 <style>
 /* =============================================
    DESIGN TOKENS
@@ -43,7 +43,7 @@
   --green:      #9ADF09;
   --orange:     #FF670B;
   --ink:        #0a0f2e;
-  --ink-60:     rgba(10,15,46,.6);
+  --ink-60:      rgba(10,15,46,.78);
   --ink-30:     rgba(10,15,46,.3);
   --surface:    #f8f9ff;
   --white:      #ffffff;
@@ -67,7 +67,7 @@
 html { scroll-behavior: smooth; }
 
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Nunito', sans-serif;
   background: var(--white);
   color: var(--ink);
   overflow-x: hidden;
@@ -150,8 +150,8 @@ header {
   filter: drop-shadow(0 16px 32px rgba(0,0,0,.55));
 }
 
-.nav-left a, .nav-right a {
-  font-family: 'Inter', sans-serif;
+.nav-left a:not(.cometa-btn), .nav-right a:not(.cometa-btn) {
+  font-family: 'Nunito', sans-serif;
   color: rgba(255,255,255,.85);
   text-decoration: none;
   font-weight: 600;
@@ -163,28 +163,37 @@ header {
   text-transform: uppercase;
   white-space: nowrap;
 }
-.nav-left a:hover, .nav-right a:hover {
+.nav-left a:not(.cometa-btn):hover, .nav-right a:not(.cometa-btn):hover {
   background: rgba(154,223,9,.15);
   color: var(--green);
   transform: translateY(-1px);
 }
-.nav-left a.active, .nav-right a.active {
+.nav-left a.active:not(.cometa-btn), .nav-right a.active:not(.cometa-btn) {
   background: rgba(154,223,9,.18);
   color: var(--green);
 }
 
 .cometa-btn {
-  background: linear-gradient(135deg, var(--orange), #ffaa00) !important;
-  color: white !important;
-  padding: 12px 28px !important;
+  font-family: 'Nunito', sans-serif;
+  background: linear-gradient(135deg, var(--orange), #ffaa00);
+  color: white;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 12px 28px;
+  border-radius: 100px;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  white-space: nowrap;
   box-shadow: 0 4px 20px rgba(255,103,11,.35);
-  transition: transform .3s var(--ease-spring), box-shadow .3s !important;
+  transition: transform .3s var(--ease-spring), box-shadow .3s, background .2s;
+  display: inline-block;
 }
 .cometa-btn:hover {
-  background: linear-gradient(135deg, #ff8a00, var(--orange)) !important;
-  color: white !important;
-  box-shadow: 0 6px 28px rgba(255,103,11,.5) !important;
-  transform: translateY(-2px) !important;
+  background: linear-gradient(135deg, #ff8a00, var(--orange));
+  color: white;
+  box-shadow: 0 6px 28px rgba(255,103,11,.5);
+  transform: translateY(-2px);
 }
 
 /* Hamburguesa */
@@ -273,18 +282,6 @@ header {
   padding: 44px 20px 80px;
 }
 
-/* Subtle grid background */
-.hero::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(8,25,114,.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(8,25,114,.04) 1px, transparent 1px);
-  background-size: 60px 60px;
-  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
-  pointer-events: none;
-}
 
 /* Glow orbs */
 .hero::after {
@@ -433,7 +430,7 @@ header {
    BUTTONS
    ============================================= */
 .btn-primary {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Nunito', sans-serif;
   background: var(--green);
   color: var(--blue);
   font-weight: 700;
@@ -453,7 +450,7 @@ header {
 }
 
 .btn-secondary {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Nunito', sans-serif;
   background: transparent;
   color: var(--blue);
   font-weight: 600;
@@ -474,7 +471,7 @@ header {
 }
 
 .btn-whatsapp {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Nunito', sans-serif;
   background: #25D366;
   color: white;
   font-weight: 700;
@@ -494,7 +491,7 @@ header {
 }
 
 .btn-white {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Nunito', sans-serif;
   background: white;
   color: var(--blue);
   font-weight: 700;
@@ -511,6 +508,57 @@ header {
 .btn-white:hover {
   transform: translateY(-3px);
   box-shadow: 0 8px 32px rgba(0,0,0,.22);
+}
+
+/* =============================================
+   PHOTO STRIP
+   ============================================= */
+.photo-strip {
+  padding: 0 40px 64px;
+  background: var(--surface);
+}
+.photo-strip-inner {
+  max-width: 1280px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.photo-strip-item {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  aspect-ratio: 4/3;
+  position: relative;
+  box-shadow: 0 4px 32px rgba(8,25,114,.1);
+}
+.photo-strip-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .6s var(--ease-out);
+}
+.photo-strip-item:hover img { transform: scale(1.04); }
+.photo-strip-caption {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  background: linear-gradient(to top, rgba(8,25,114,.7) 0%, transparent 100%);
+  padding: 28px 20px 18px;
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.9);
+}
+
+@media (max-width: 900px) {
+  .photo-strip { padding: 0 20px 48px; }
+  .photo-strip-inner { grid-template-columns: 1fr 1fr; }
+  .photo-strip-inner .photo-strip-item:last-child { display: none; }
+}
+@media (max-width: 640px) {
+  .photo-strip-inner { grid-template-columns: 1fr; }
+  .photo-strip-inner .photo-strip-item:last-child { display: block; }
 }
 
 /* =============================================
@@ -787,7 +835,9 @@ header {
   border: 1px solid var(--border);
   box-shadow: 0 4px 24px rgba(8,25,114,.06);
   transition: transform .4s var(--ease-out), box-shadow .4s;
-  cursor: default;
+  text-decoration: none;
+  display: block;
+  color: inherit;
 }
 .level-card:hover {
   transform: translateY(-8px);
@@ -904,7 +954,7 @@ header {
   margin-bottom: 36px;
 }
 .cta-contact-item {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Nunito', sans-serif;
   display: inline-flex;
   align-items: center;
   gap: 9px;
@@ -1034,7 +1084,7 @@ footer {
   gap: 10px;
   background: #25D366;
   color: white;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Nunito', sans-serif;
   font-weight: 700;
   font-size: .75rem;
   letter-spacing: .06em;
@@ -1181,7 +1231,7 @@ footer {
 @media (prefers-reduced-motion: reduce) {
   #intro-backdrop, #intro-shield-wrap { display: none !important; }
 }
-.scroll-progress{position:fixed;top:0;left:0;height:2px;width:0%;background:var(--green);z-index:1100;transition:width .08s linear;box-shadow:0 0 6px rgba(154,223,9,.6);}
+.scroll-progress{position:fixed;top:0;left:0;height:2px;width:100%;background:var(--green);z-index:1100;transform:scaleX(0);transform-origin:left;transition:transform .08s linear;box-shadow:0 0 6px rgba(154,223,9,.6);}
 .btn-primary:active,.btn-secondary:active,.btn-white:active,.btn-whatsapp:active,.wa-sticky:active{transform:scale(0.97)!important;transition-duration:.1s!important;}
 </style>
   <!-- Google Analytics -->
@@ -1209,7 +1259,7 @@ footer {
   <a href="nosotros.html"   onclick="closeMobile()">Nosotros</a>
   <a href="modelo.html"     onclick="closeMobile()">Modelo Educativo</a>
   <a href="comunidad.html"  onclick="closeMobile()">Manada&reg;</a>
-  <a href="cometa.html"     onclick="closeMobile()">¿Estás Listo?</a>
+  <a href="cometa.html"     onclick="closeMobile()">Agenda tu Visita</a>
   <a href="contacto.html"   onclick="closeMobile()">Contacto</a>
   <div class="mobile-menu-sep"></div>
   <a href="https://www.facebook.com/liceorogers/" target="_blank" rel="noopener noreferrer" class="mobile-fb-link" onclick="closeMobile()">
@@ -1237,8 +1287,8 @@ footer {
   </div>
 
   <div class="nav-right">
-    <a href="comunidad.html">Manada&reg;</a>
-    <a href="cometa.html" class="cometa-btn">¿Estás Listo?</a>
+    <a href="comunidad.html" title="Nuestra comunidad de familias y alumnos">Manada&reg;</a>
+    <a href="cometa.html" class="cometa-btn">Agenda tu Visita</a>
     <a href="contacto.html">Contacto</a>
     <button class="hamburger" onclick="toggleMobile()" aria-label="Abrir menú" aria-expanded="false" id="hamburgerBtn">
       <span></span><span></span><span></span>
@@ -1250,7 +1300,7 @@ footer {
      HERO
      ============================================= -->
 <section class="hero">
-  <canvas class="hero-canvas" id="heroCanvas"></canvas>
+  <canvas class="hero-canvas" id="heroCanvas" aria-hidden="true"></canvas>
   <div class="hero-glow-green"></div>
   <div class="hero-glow-orange"></div>
 
@@ -1426,13 +1476,12 @@ footer {
 <section class="levels-section">
   <div class="levels-inner">
     <div class="levels-header reveal">
-      <div class="section-label">Oferta educativa</div>
       <h2 class="section-title">Formamos en cada etapa</h2>
       <p class="section-desc">Desde preescolar hasta secundaria, acompañamos el crecimiento de cada estudiante con metodologías adaptadas a su desarrollo.</p>
     </div>
 
     <div class="levels-grid">
-      <div class="level-card reveal reveal-delay-1">
+      <a href="modelo.html" class="level-card reveal reveal-delay-1">
         <div class="level-card-top">
           <span class="level-tag">Nivel educativo</span>
           <h3 class="level-name">Preescolar</h3>
@@ -1446,9 +1495,9 @@ footer {
             <li>K1, K2 y K3 con perspectiva global</li>
           </ul>
         </div>
-      </div>
+      </a>
 
-      <div class="level-card reveal reveal-delay-2">
+      <a href="modelo.html" class="level-card reveal reveal-delay-2">
         <div class="level-card-top">
           <span class="level-tag">Nivel educativo</span>
           <h3 class="level-name">Primaria</h3>
@@ -1462,9 +1511,9 @@ footer {
             <li>Pensamiento matemático activo</li>
           </ul>
         </div>
-      </div>
+      </a>
 
-      <div class="level-card reveal reveal-delay-3">
+      <a href="modelo.html" class="level-card reveal reveal-delay-3">
         <div class="level-card-top">
           <span class="level-tag">Nivel educativo</span>
           <h3 class="level-name">Secundaria</h3>
@@ -1478,7 +1527,7 @@ footer {
             <li>Preparación para la vida</li>
           </ul>
         </div>
-      </div>
+      </a>
     </div>
   </div>
 </section>
@@ -1527,8 +1576,8 @@ footer {
       <a href="index.html">Inicio</a>
       <a href="nosotros.html">Nosotros</a>
       <a href="modelo.html">Modelo Educativo</a>
-      <a href="comunidad.html">Manada&reg;</a>
-      <a href="cometa.html">¿Estás Listo?</a>
+      <a href="comunidad.html" title="Nuestra comunidad de familias y alumnos">Manada&reg;</a>
+      <a href="cometa.html">Agenda tu Visita</a>
       <a href="contacto.html">Contacto</a>
     </div>
 
@@ -1610,7 +1659,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
-/* Logo intro �?" FLIP: shield flies from center to header, logo swap at landing */
+/* Logo intro — FLIP: shield flies from center to header, logo swap at landing */
 (function () {
   var backdrop    = document.getElementById('intro-backdrop');
   var wrap        = document.getElementById('intro-shield-wrap');
@@ -1648,7 +1697,7 @@ document.addEventListener('DOMContentLoaded', function () {
         shield.style.transform    = 'translate(' + dx + 'px,' + dy + 'px) scale(' + scale + ')';
         backdrop.style.opacity    = '0';
 
-        /* At landing: swap animated shield �?' real header logo simultaneously */
+        /* At landing: swap animated shield → real header logo simultaneously */
         setTimeout(function () {
           headerLogo.style.transition = 'opacity .2s ease-out';
           headerLogo.style.opacity    = '1';
@@ -1747,7 +1796,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var steps        = Math.round(rand(16, 26));
     var baseStepDist = size * rand(2.1, 2.7);
     var interval     = rand(145, 225);
-    /* More pronounced, organic curvature �?" changes sign randomly */
+    /* More pronounced, organic curvature — changes sign randomly */
     var baseCurve    = rand(.055, .13) * (Math.random() < .5 ? 1 : -1);
     var maxAlpha     = rand(.45, .72);
     var maxLife      = steps * interval + rand(2000, 3500);
@@ -1764,7 +1813,7 @@ document.addEventListener('DOMContentLoaded', function () {
       var px = cx + Math.cos(perp) * side * size * .53 + Math.cos(ca) * stepDist;
       var py = cy + Math.sin(perp) * side * size * .53 + Math.sin(ca) * stepDist;
 
-      /* Only place paw if fully inside canvas �?" no edge clipping ever */
+      /* Only place paw if fully inside canvas — no edge clipping ever */
       if (px >= safeMargin && px <= W - safeMargin &&
           py >= safeMargin && py <= H - safeMargin) {
         paws.push({x: px, y: py, angle: ca + Math.PI/2, delay: i * interval});
@@ -1816,7 +1865,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   loop();
 })();
-(function(){var b=document.getElementById('scrollProgress');if(!b)return;window.addEventListener('scroll',function(){var s=document.documentElement;b.style.width=Math.min(s.scrollTop/(s.scrollHeight-s.clientHeight)*100,100)+'%';},{passive:true});})();
+(function(){var b=document.getElementById('scrollProgress');if(!b)return;window.addEventListener('scroll',function(){var s=document.documentElement;b.style.transform='scaleX('+Math.min(s.scrollTop/(s.scrollHeight-s.clientHeight),1)+')';},{passive:true});})();
 </script>
 </body>
 </html>
