@@ -1221,10 +1221,9 @@ footer {
   width: min(44vmin, 220px);
   height: min(44vmin, 220px);
   object-fit: contain;
-  filter: drop-shadow(0 8px 32px rgba(0,0,0,.35));
+  filter: drop-shadow(0 8px 32px rgba(0,0,0,.35)) blur(0);
   will-change: transform;
   animation: introShieldIn .4s var(--ease-out) both;
-  filter: blur(0);
 }
 @keyframes introBackIn   { from { opacity: 0; } to { opacity: 1; } }
 @keyframes introShieldIn { from { opacity: 0; transform: scale(.93); filter: blur(8px); } to { opacity: 1; transform: scale(1); filter: blur(0); } }
@@ -1258,7 +1257,7 @@ footer {
   <a href="index.html"      onclick="closeMobile()">Inicio</a>
   <a href="nosotros.html"   onclick="closeMobile()">Nosotros</a>
   <a href="modelo.html"     onclick="closeMobile()">Modelo Educativo</a>
-  <a href="comunidad.html"  onclick="closeMobile()">Manada&reg;</a>
+  <a href="comunidad.html"  onclick="closeMobile()">Manada&reg; — Comunidad</a>
   <a href="cometa.html"     onclick="closeMobile()">Agenda tu Visita</a>
   <a href="contacto.html"   onclick="closeMobile()">Contacto</a>
   <div class="mobile-menu-sep"></div>

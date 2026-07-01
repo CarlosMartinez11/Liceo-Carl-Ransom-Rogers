@@ -761,20 +761,25 @@ footer { background: var(--ink); color: rgba(255,255,255,.55); padding: 72px 40p
 <body>
 
 <!-- LOGO INTRO -->
-<div id="logo-intro" aria-hidden="true">
-  <img src="assets/Escudo SF.png" class="intro-logo" alt="">
-  <span class="intro-name">Liceo Carl Ransom Rogers</span>
+<div id="intro-backdrop" aria-hidden="true"></div>
+<div id="intro-shield-wrap" aria-hidden="true">
+  <img id="intro-shield" src="assets/Escudo SF.png" alt="">
 </div>
 
 <!-- MOBILE MENU -->
-<div class="mobile-menu" id="mobileMenu">
-  <button class="mobile-close" onclick="closeMobile()">&#x2715;</button>
+<div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true" aria-label="Menú de navegación" tabindex="-1">
+  <button class="mobile-close" onclick="closeMobile()" aria-label="Cerrar menú">&#x2715;</button>
   <a href="index.html"     onclick="closeMobile()">Inicio</a>
   <a href="nosotros.html"  onclick="closeMobile()">Nosotros</a>
   <a href="modelo.html"    onclick="closeMobile()">Modelo Educativo</a>
   <a href="comunidad.html" onclick="closeMobile()">Manada&reg; — Comunidad</a>
   <a href="cometa.html"    onclick="closeMobile()">Agenda tu Visita</a>
   <a href="contacto.html"  onclick="closeMobile()">Contacto</a>
+  <div class="mobile-menu-sep"></div>
+  <a href="https://www.facebook.com/liceorogers/" target="_blank" rel="noopener noreferrer" class="mobile-fb-link" onclick="closeMobile()">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+    Síguenos en Facebook
+  </a>
 </div>
 
 <!-- HEADER -->
@@ -787,7 +792,7 @@ footer { background: var(--ink); color: rgba(255,255,255,.55); padding: 72px 40p
   <div class="nav-center">
     <a href="index.html">
       <div class="logo-wrapper">
-        <img src="assets/Escudo SF.png" class="logo" alt="Liceo Carl Ransom Rogers">
+        <img src="assets/Escudo SF.png" class="logo" id="headerLogo" alt="Liceo Carl Ransom Rogers" style="opacity:0">
       </div>
     </a>
   </div>
@@ -1215,46 +1220,101 @@ function toggleFaq(el) {
   var wasOpen = el.classList.contains('open');
   document.querySelectorAll('.faq-item.open').forEach(function(item) {
     item.classList.remove('open');
-    item.querySelector('.faq-icon').textContent = '+';
   });
   if (!wasOpen) {
     el.classList.add('open');
-    el.querySelector('.faq-icon').textContent = '+';
   }
 }
 
+var _menuTrigger = null;
 function toggleMobile() {
   var m = document.getElementById('mobileMenu');
-  m.classList.toggle('open');
-  var isOpen = m.classList.contains('open');
-  document.body.style.overflow = isOpen ? 'hidden' : '';
   var btn = document.getElementById('hamburgerBtn');
-  if (btn) btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  var willOpen = !m.classList.contains('open');
+  if (willOpen) {
+    _menuTrigger = document.activeElement;
+    m.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    if (btn) btn.setAttribute('aria-expanded', 'true');
+    m.focus();
+  } else {
+    closeMobile();
+  }
 }
 function closeMobile() {
-  document.getElementById('mobileMenu').classList.remove('open');
-  document.body.style.overflow = '';
+  var m = document.getElementById('mobileMenu');
   var btn = document.getElementById('hamburgerBtn');
+  m.classList.remove('open');
+  document.body.style.overflow = '';
   if (btn) btn.setAttribute('aria-expanded', 'false');
+  if (_menuTrigger) { _menuTrigger.focus(); _menuTrigger = null; }
 }
 
-/* Logo intro */
+/* Focus trap + Escape for mobile menu */
+document.addEventListener('DOMContentLoaded', function () {
+  var m = document.getElementById('mobileMenu');
+  if (!m) return;
+  m.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') { closeMobile(); return; }
+    if (e.key !== 'Tab') return;
+    var focusable = m.querySelectorAll('a[href], button:not([disabled])');
+    var first = focusable[0];
+    var last = focusable[focusable.length - 1];
+    if (e.shiftKey) {
+      if (document.activeElement === first) { e.preventDefault(); last.focus(); }
+    } else {
+      if (document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+  });
+});
+
+/* Logo intro — FLIP: shield flies from center to header, logo swap at landing */
 (function () {
-  var intro = document.getElementById('logo-intro');
-  if (!intro) return;
-  if (sessionStorage.getItem('introPlayed')) { intro.remove(); return; }
+  var backdrop    = document.getElementById('intro-backdrop');
+  var wrap        = document.getElementById('intro-shield-wrap');
+  var shield      = document.getElementById('intro-shield');
+  var headerLogo  = document.getElementById('headerLogo');
+  if (!backdrop || !wrap || !shield) return;
+
+  if (sessionStorage.getItem('introPlayed')) {
+    backdrop.remove(); wrap.remove();
+    if (headerLogo) headerLogo.style.opacity = '1';
+    return;
+  }
+
   sessionStorage.setItem('introPlayed', '1');
   document.body.style.overflow = 'hidden';
+
   setTimeout(function () {
-    var img = intro.querySelector('.intro-logo');
-    if (img) img.style.animation = 'none';
+    if (!headerLogo) { backdrop.remove(); wrap.remove(); document.body.style.overflow = ''; return; }
+
+    var sr   = shield.getBoundingClientRect();
+    var lr   = headerLogo.getBoundingClientRect();
+    var scale = lr.width / sr.width;
+    var dx   = (lr.left + lr.width  / 2) - (sr.left + sr.width  / 2);
+    var dy   = (lr.top  + lr.height / 2) - (sr.top  + sr.height / 2);
+    var ease = 'cubic-bezier(0.22,1,0.36,1)';
+
+    shield.style.animation   = 'none';
+    backdrop.style.animation = 'none';
+
     requestAnimationFrame(function () {
       requestAnimationFrame(function () {
-        intro.classList.add('intro-exit');
-        setTimeout(function () { intro.remove(); document.body.style.overflow = ''; }, 850);
+        shield.style.transition   = 'transform .6s ' + ease;
+        backdrop.style.transition = 'opacity .6s '   + ease;
+        shield.style.transform    = 'translate(' + dx + 'px,' + dy + 'px) scale(' + scale + ')';
+        backdrop.style.opacity    = '0';
+
+        setTimeout(function () {
+          headerLogo.style.transition = 'opacity .2s ease-out';
+          headerLogo.style.opacity    = '1';
+          backdrop.remove();
+          wrap.remove();
+          document.body.style.overflow = '';
+        }, 620);
       });
     });
-  }, 1200);
+  }, 400);
 })();
 
 /* Scroll-reveal */
