@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta name="google-site-verification" content="bpNleFr6NtnZFRSb2TgWxJt_e_YdRoiDvX_5wxPfYsc" />    <meta charset="UTF-8">
@@ -124,7 +124,8 @@ header {
   white-space: nowrap;
   font-weight: 700;
   background: linear-gradient(135deg, var(--orange), #ffaa00);
-  color: white; padding: 8px 20px;
+  color: white; padding: 12px 28px;
+  border-radius: 100px;
   box-shadow: 0 4px 20px rgba(255,103,11,.35);
   transition: transform .3s var(--ease-spring), box-shadow .3s;
 }
@@ -755,15 +756,9 @@ footer { background: var(--ink); color: rgba(255,255,255,.55); padding: 72px 40p
   background: var(--green, #9ADF09); z-index: 1100;
   transition: width .08s linear; box-shadow: 0 0 6px rgba(154,223,9,.6);
 }
+html:not(.js) .reveal, html:not(.js) .reveal-left, html:not(.js) .reveal-right { opacity: 1; transform: none; clip-path: none; }
 </style>
-  <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-L6J2L775B7"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-L6J2L775B7');
-  </script></head>
+  <!-- Analytics is intentionally disabled until the site has a consent mechanism. --></head>
 <body>
 
 <!-- LOGO INTRO -->
@@ -1325,12 +1320,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
 /* Scroll-reveal */
 (function () {
+  document.documentElement.classList.add('js');
+  var revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+  if (!('IntersectionObserver' in window)) { revealElements.forEach(function (el) { el.classList.add('visible'); }); return; }
   var io = new IntersectionObserver(function (entries) {
     entries.forEach(function (e) {
       if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
     });
   }, { threshold: 0.1 });
-  document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(function (el) { io.observe(el); });
+  revealElements.forEach(function (el) { io.observe(el); });
 })();
 /* Scroll progress */
 (function(){var b=document.getElementById('scrollProgress');if(!b)return;window.addEventListener('scroll',function(){var s=document.documentElement;b.style.transform='scaleX('+Math.min(s.scrollTop/(s.scrollHeight-s.clientHeight),1)+')';},{passive:true});})();
