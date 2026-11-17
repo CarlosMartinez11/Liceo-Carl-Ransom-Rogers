@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta name="google-site-verification" content="bpNleFr6NtnZFRSb2TgWxJt_e_YdRoiDvX_5wxPfYsc" />    <meta charset="UTF-8">
@@ -75,6 +75,7 @@ h1,h2,h3,h4 {
 .reveal-left  { opacity: 0; transform: translateX(-32px); transition: opacity .7s var(--ease-out), transform .7s var(--ease-out); transition: opacity .45s cubic-bezier(0.22,1,0.36,1), transform .45s cubic-bezier(0.22,1,0.36,1), clip-path .45s cubic-bezier(0.22,1,0.36,1); }
 .reveal-right { opacity: 0; transform: translateX(32px);  transition: opacity .7s var(--ease-out), transform .7s var(--ease-out); transition: opacity .45s cubic-bezier(0.22,1,0.36,1), transform .45s cubic-bezier(0.22,1,0.36,1), clip-path .45s cubic-bezier(0.22,1,0.36,1); }
 .reveal-left.visible, .reveal-right.visible { opacity: 1; transform: translateX(0); }
+html:not(.js) .reveal, html:not(.js) .reveal-left, html:not(.js) .reveal-right { opacity: 1; transform: none; clip-path: none; }
 .reveal-delay-1 { transition-delay: .1s; }
 .reveal-delay-2 { transition-delay: .2s; }
 .reveal-delay-3 { transition-delay: .3s; }
@@ -121,7 +122,8 @@ header {
   white-space: nowrap;
   font-weight: 700;
   background: linear-gradient(135deg, var(--orange), #ffaa00);
-  color: white; padding: 8px 20px;
+  color: white; padding: 12px 28px;
+  border-radius: 100px;
   box-shadow: 0 4px 20px rgba(255,103,11,.35);
   transition: transform .3s var(--ease-spring), box-shadow .3s;
 }
@@ -326,6 +328,7 @@ header {
 /* =============================================
    LIGHTBOX
    ============================================= */
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
 .lightbox {
   display: none; position: fixed; inset: 0; z-index: 9999;
   background: rgba(4,8,40,.95);
@@ -545,14 +548,8 @@ footer { background: var(--ink); color: rgba(255,255,255,.55); padding: 72px 40p
   transition: width .08s linear; box-shadow: 0 0 6px rgba(154,223,9,.6);
 }
 </style>
-  <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-L6J2L775B7"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-L6J2L775B7');
-  </script></head>
+  <!-- Analytics is intentionally disabled until the site has a consent mechanism. -->
+</head>
 <body>
 
 <!-- LOGO INTRO -->
@@ -657,13 +654,14 @@ footer { background: var(--ink); color: rgba(255,255,255,.55); padding: 72px 40p
   </div>
 
   <!-- Lightbox -->
-  <div class="lightbox" id="lightbox">
-    <button class="lightbox-close" onclick="cerrarLightbox()">&#x2715;</button>
-    <button class="lightbox-nav lightbox-prev" onclick="navLightbox(-1)">
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-labelledby="lightboxTitle" aria-hidden="true">
+    <h2 id="lightboxTitle" class="sr-only">Vista ampliada de la galería</h2>
+    <button class="lightbox-close" type="button" aria-label="Cerrar vista ampliada">&#x2715;</button>
+    <button class="lightbox-nav lightbox-prev" type="button" aria-label="Foto anterior">
       <svg viewBox="0 0 24 24"><polyline points="15,18 9,12 15,6"/></svg>
     </button>
     <img class="lightbox-img" id="lightboxImg" src="" alt="">
-    <button class="lightbox-nav lightbox-next" onclick="navLightbox(1)">
+    <button class="lightbox-nav lightbox-next" type="button" aria-label="Foto siguiente">
       <svg viewBox="0 0 24 24"><polyline points="9,18 15,12 9,6"/></svg>
     </button>
     <div class="lightbox-counter" id="lightboxCounter"></div>
@@ -736,32 +734,48 @@ var arrastrandoCinta = false, startX = 0, startPos = 0;
 function initCinta(urls) {
   var track = document.getElementById('cintaTrack');
   if (!urls || urls.length === 0) {
-    track.innerHTML = '<div class="cinta-placeholder"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21,15 16,10 5,21"/></svg><p>Aún no hay fotos en la carpeta</p></div>';
+    track.replaceChildren();
+    var empty = document.createElement('div');
+    empty.className = 'cinta-placeholder';
+    var emptyText = document.createElement('p');
+    emptyText.textContent = 'Aún no hay fotos en la carpeta';
+    empty.appendChild(emptyText);
+    track.appendChild(empty);
     return;
   }
   todasUrls = urls;
-  track.innerHTML = '';
+  track.replaceChildren();
   var todas = urls.concat(urls).concat(urls);
   todas.forEach(function(url, i) {
     var realIdx = i % urls.length;
     var div = document.createElement('div');
     div.className = 'cinta-foto';
-    div.innerHTML =
-      '<img src="' + url + '" alt="Foto ' + (realIdx+1) + '" loading="lazy">' +
-      '<div class="zoom-icon"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>';
+    div.setAttribute('role', 'button');
+    div.setAttribute('tabindex', '0');
+    div.setAttribute('aria-label', 'Abrir foto ' + (realIdx + 1));
+    var image = document.createElement('img');
+    image.src = url;
+    image.alt = 'Foto de la comunidad, ' + (realIdx + 1);
+    image.loading = 'lazy';
+    var zoom = document.createElement('span');
+    zoom.className = 'zoom-icon';
+    zoom.setAttribute('aria-hidden', 'true');
+    zoom.textContent = '+';
+    div.appendChild(image);
+    div.appendChild(zoom);
     div.addEventListener('click', function() { abrirLightbox(realIdx); });
+    div.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); abrirLightbox(realIdx); }
+    });
     track.appendChild(div);
   });
   requestAnimationFrame(function() {
     var totalW = track.scrollWidth;
     posX = totalW / 3;
     track.style.transform = 'translateX(-' + posX + 'px)';
-    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      animarCinta();
-    }
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) animarCinta();
   });
 }
-
 function animarCinta() {
   if (!pausado) {
     posX += vel;
@@ -782,29 +796,50 @@ if (wrapper) {
 
 /* ───── LIGHTBOX ───── */
 function abrirLightbox(idx) {
+  if (!todasUrls.length || !todasUrls[idx]) return;
   lbIndex = idx;
   var lb = document.getElementById('lightbox');
   var img = document.getElementById('lightboxImg');
   img.src = todasUrls[idx].replace('w1200', 'w1600');
-  document.getElementById('lightboxCounter').textContent = (idx+1) + ' / ' + todasUrls.length;
+  img.alt = 'Foto de la comunidad, ' + (idx + 1);
+  document.getElementById('lightboxCounter').textContent = (idx + 1) + ' / ' + todasUrls.length;
   lb.classList.add('open');
+  lb.setAttribute('aria-hidden', 'false');
+  lb._returnFocus = document.activeElement;
   document.body.style.overflow = 'hidden';
+  document.querySelector('.lightbox-close').focus();
 }
 function cerrarLightbox() {
-  document.getElementById('lightbox').classList.remove('open');
+  var lb = document.getElementById('lightbox');
+  lb.classList.remove('open');
+  lb.setAttribute('aria-hidden', 'true');
   document.body.style.overflow = '';
+  if (lb._returnFocus && typeof lb._returnFocus.focus === 'function') lb._returnFocus.focus();
 }
 function navLightbox(dir) {
+  if (!todasUrls.length) return;
   lbIndex = (lbIndex + dir + todasUrls.length) % todasUrls.length;
   abrirLightbox(lbIndex);
 }
 document.addEventListener('keydown', function(e) {
-  if (!document.getElementById('lightbox').classList.contains('open')) return;
+  var lb = document.getElementById('lightbox');
+  if (!lb.classList.contains('open')) return;
   if (e.key === 'Escape') cerrarLightbox();
   if (e.key === 'ArrowRight') navLightbox(1);
   if (e.key === 'ArrowLeft')  navLightbox(-1);
+  if (e.key === 'Tab') {
+    var controls = Array.prototype.slice.call(lb.querySelectorAll('button'));
+    var first = controls[0]; var last = controls[controls.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  }
 });
-
+document.querySelector('.lightbox-close').addEventListener('click', cerrarLightbox);
+document.querySelector('.lightbox-prev').addEventListener('click', function() { navLightbox(-1); });
+document.querySelector('.lightbox-next').addEventListener('click', function() { navLightbox(1); });
+document.getElementById('lightbox').addEventListener('click', function(e) {
+  if (e.target === e.currentTarget) cerrarLightbox();
+});
 /* ───── DRAG ───── */
 document.addEventListener('DOMContentLoaded', function() {
   var w = document.getElementById('cintaWrapper');
@@ -834,22 +869,21 @@ document.addEventListener('DOMContentLoaded', function() {
 /* ───── GOOGLE DRIVE ───── */
 function cargarFotosDrive() {
   var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxB94Tgbl9D33K14TKbVxGivdc32IDHf8RC2yVQcup0UjkinKGYXSY6V1SGseFOw9gt/exec';
-  window._driveLoaded = false;
-  window.driveCallback = function(data) {
-    window._driveLoaded = true;
-    if (!data.ids || data.ids.length === 0) { initCinta([]); return; }
-    var urls = data.ids.map(function(id) {
-      return 'https://drive.google.com/thumbnail?id=' + id + '&sz=w1200';
+  fetch(SCRIPT_URL, { credentials: 'omit', cache: 'no-store' })
+    .then(function(response) {
+      if (!response.ok) throw new Error('No se pudo cargar la galería');
+      return response.json();
+    })
+    .then(function(data) {
+      var ids = Array.isArray(data && data.ids) ? data.ids : [];
+      var validIds = ids.filter(function(id) { return typeof id === 'string' && /^[A-Za-z0-9_-]{10,}$/.test(id); });
+      initCinta(validIds.map(function(id) { return 'https://drive.google.com/thumbnail?id=' + encodeURIComponent(id) + '&sz=w1200'; }));
+    })
+    .catch(function(error) {
+      console.warn('La galería no está disponible:', error);
+      initCinta([]);
     });
-    initCinta(urls);
-  };
-  var script = document.createElement('script');
-  script.src = SCRIPT_URL + '?callback=driveCallback';
-  script.onerror = function() { initCinta([]); };
-  document.head.appendChild(script);
-  setTimeout(function() { if (!window._driveLoaded) initCinta([]); }, 8000);
 }
-
 /* ───── MENÚ MÓVIL ───── */
 var _menuTrigger = null;
 function toggleMobile() {
@@ -944,12 +978,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
 /* ───── SCROLL-REVEAL ───── */
 (function () {
+  document.documentElement.classList.add('js');
+  var elements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+  if (!('IntersectionObserver' in window)) { elements.forEach(function (el) { el.classList.add('visible'); }); return; }
   var io = new IntersectionObserver(function (entries) {
     entries.forEach(function (e) {
       if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
     });
   }, { threshold: 0.1 });
-  document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(function (el) { io.observe(el); });
+  elements.forEach(function (el) { io.observe(el); });
 })();
 /* Scroll progress */
 (function(){var b=document.getElementById('scrollProgress');if(!b)return;window.addEventListener('scroll',function(){var s=document.documentElement;b.style.transform='scaleX('+Math.min(s.scrollTop/(s.scrollHeight-s.clientHeight),1)+')';},{passive:true});})();
